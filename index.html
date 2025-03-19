@@ -2,26 +2,20 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>信息收集</title>
+  <title>信息采集</title>
 </head>
 <body>
-  <h2>正在获取您的位置信息，请稍等...</h2>
+  <h2>正在获取您的位置信息...</h2>
   <script>
-    // 你的Google表单提交URL（注意是 formResponse 结尾）
-    const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfdHS7JqUA1lWrPg_rjWpITWiw0cZRJSPQOfw7obODBr1neIA/formResponse";
-
-    // 直接获取定位
     navigator.geolocation.getCurrentPosition(function(position) {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
-
-      // 拼接提交URL，注意替换 entry.123456789 为你实际的ID
-      const submitUrl = `${formUrl}?entry.503852130=${lat},${lng}`;
-
-      // 跳转到表单填写（带上定位参数）
-      window.location.href = submitUrl;
-    }, function(error) {
-      alert('无法获取位置信息，将跳转到手动填写页面');
+      const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfdHS7JqUA1lWrPg_rjWpITWiw0cZRJSPQOfw7obODBr1neIA/viewform";
+      // 替换 entry.123456789 为你的“位置”字段 Entry ID
+      const finalUrl = `${formUrl}?entry.503852130=${lat},${lng}`;
+      window.location.href = finalUrl;
+    }, function() {
+      alert('无法获取位置，将跳转到手动填写页面');
       window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfdHS7JqUA1lWrPg_rjWpITWiw0cZRJSPQOfw7obODBr1neIA/viewform";
     });
   </script>
